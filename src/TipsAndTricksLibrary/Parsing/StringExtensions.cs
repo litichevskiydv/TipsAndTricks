@@ -19,5 +19,16 @@
                 ? new ParsingResult<DateTime>(parsedDateTime, true)
                 : new ParsingResult<DateTime>(null, true);
         }
+
+        public static ParsingResult<bool> ParseBool(this string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return new ParsingResult<bool>(null, false);
+
+            bool parsedBool;
+            return bool.TryParse(input, out parsedBool)
+                ? new ParsingResult<bool>(parsedBool, true)
+                : new ParsingResult<bool>(null, true);
+        }
     }
 }

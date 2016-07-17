@@ -10,6 +10,8 @@
     {
         [UsedImplicitly]
         public static IEnumerable<object[]> ParseDateTimeTestsData;
+        [UsedImplicitly]
+        public static IEnumerable<object[]> ParseBoolTestsData;
 
         static StringExtensionsTests()
         {
@@ -27,8 +29,16 @@
                                          new object[]
                                          {
                                              "20160717", "yyyyMMdd", new ParsingResult<DateTime>(new DateTime(2016, 07, 17), true)
-                                         },
+                                         }
                                      };
+            ParseBoolTestsData = new[]
+                                 {
+                                     new object[] {"true", new ParsingResult<bool>(true, true)},
+                                     new object[] {"false", new ParsingResult<bool>(false, true)},
+                                     new object[] {"d", new ParsingResult<bool>(null, true)},
+                                     new object[] {"", new ParsingResult<bool>(null, false)},
+                                     new object[] {null, new ParsingResult<bool>(null, false)}
+                                 };
         }
 
         [Theory]
@@ -38,6 +48,19 @@
             // When
             var actualResult = input.ParseDateTime(format);
 
+            //Then
+            Assert.Equal(expectedResult, actualResult);
+            Assert.Equal(expectedResult.SourceHasValue, actualResult.SourceHasValue);
+        }
+
+        [Theory]
+        [MemberData(nameof(ParseBoolTestsData))]
+        public void ShouldParseBool(string input, ParsingResult<bool> expectedResult)
+        {
+            // When
+            var actualResult = input.ParseBool();
+
+            // Then
             Assert.Equal(expectedResult, actualResult);
             Assert.Equal(expectedResult.SourceHasValue, actualResult.SourceHasValue);
         }
