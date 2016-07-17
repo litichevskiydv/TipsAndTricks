@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using JetBrains.Annotations;
     using TipsAndTricksLibrary.Parsing;
     using Xunit;
@@ -16,6 +17,10 @@
         public static IEnumerable<object[]> ParseIntTestsData;
         [UsedImplicitly]
         public static IEnumerable<object[]> ParseLongTestsData;
+        [UsedImplicitly]
+        public static IEnumerable<object[]> ParseDoubleTestsData;
+        [UsedImplicitly]
+        public static IEnumerable<object[]> ParseDecimalTestsData;
 
         static StringExtensionsTests()
         {
@@ -57,6 +62,32 @@
                                      new object[] {"", new ParsingResult<long>(null, false)},
                                      new object[] {null, new ParsingResult<long>(null, false)}
                                  };
+            ParseDoubleTestsData = new[]
+                                   {
+                                       new object[] {"1", null, new ParsingResult<double>(1, true)},
+                                       new object[] {"1.5", null, new ParsingResult<double>(1.5d, true)},
+                                       new object[]
+                                       {
+                                           "1,5", new NumberFormatInfo {CurrencyDecimalSeparator = ","},
+                                           new ParsingResult<double>(1.5d, true)
+                                       },
+                                       new object[] {"d", null, new ParsingResult<double>(null, true)},
+                                       new object[] {"", null, new ParsingResult<double>(null, false)},
+                                       new object[] {null, null, new ParsingResult<double>(null, false)}
+                                   };
+            ParseDecimalTestsData = new[]
+                                   {
+                                       new object[] {"1", null, new ParsingResult<decimal>(1, true)},
+                                       new object[] {"1.5", null, new ParsingResult<decimal>(1.5m, true)},
+                                       new object[]
+                                       {
+                                           "1,5", new NumberFormatInfo {CurrencyDecimalSeparator = ","},
+                                           new ParsingResult<decimal>(1.5m, true)
+                                       },
+                                       new object[] {"d", null, new ParsingResult<decimal>(null, true)},
+                                       new object[] {"", null, new ParsingResult<decimal>(null, false)},
+                                       new object[] {null, null, new ParsingResult<decimal>(null, false)}
+                                   };
         }
 
         [Theory]
@@ -101,6 +132,30 @@
         {
             // When
             var actualResult = input.ParseLong();
+
+            // Then
+            Assert.Equal(expectedResult, actualResult);
+            Assert.Equal(expectedResult.SourceHasValue, actualResult.SourceHasValue);
+        }
+
+        [Theory]
+        [MemberData(nameof(ParseDoubleTestsData))]
+        public void ShouldParseDouble(string input, IFormatProvider formatProvider, ParsingResult<double> expectedResult)
+        {
+            // When
+            var actualResult = input.ParseDouble(formatProvider);
+
+            // Then
+            Assert.Equal(expectedResult, actualResult);
+            Assert.Equal(expectedResult.SourceHasValue, actualResult.SourceHasValue);
+        }
+
+        [Theory]
+        [MemberData(nameof(ParseDecimalTestsData))]
+        public void ShouldParseDecimal(string input, IFormatProvider formatProvider, ParsingResult<decimal> expectedResult)
+        {
+            // When
+            var actualResult = input.ParseDecimal(formatProvider);
 
             // Then
             Assert.Equal(expectedResult, actualResult);

@@ -47,10 +47,32 @@
             if (string.IsNullOrWhiteSpace(input))
                 return new ParsingResult<long>(null, false);
 
-            long parsedInt;
-            return long.TryParse(input, NumberStyles.Any, formatProvider ?? CultureInfo.InvariantCulture, out parsedInt)
-                ? new ParsingResult<long>(parsedInt, true)
+            long parsedLong;
+            return long.TryParse(input, NumberStyles.Any, formatProvider ?? CultureInfo.InvariantCulture, out parsedLong)
+                ? new ParsingResult<long>(parsedLong, true)
                 : new ParsingResult<long>(null, true);
+        }
+
+        public static ParsingResult<double> ParseDouble(this string input, IFormatProvider formatProvider = null)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return new ParsingResult<double>(null, false);
+
+            double parsedDouble;
+            return double.TryParse(input, NumberStyles.Any, formatProvider ?? CultureInfo.InvariantCulture, out parsedDouble)
+                ? new ParsingResult<double>(parsedDouble, true)
+                : new ParsingResult<double>(null, true);
+        }
+
+        public static ParsingResult<decimal> ParseDecimal(this string input, IFormatProvider formatProvider = null)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return new ParsingResult<decimal>(null, false);
+
+            decimal parsedDecimal;
+            return decimal.TryParse(input, NumberStyles.Any, formatProvider ?? CultureInfo.InvariantCulture, out parsedDecimal)
+                ? new ParsingResult<decimal>(parsedDecimal, true)
+                : new ParsingResult<decimal>(null, true);
         }
     }
 }
