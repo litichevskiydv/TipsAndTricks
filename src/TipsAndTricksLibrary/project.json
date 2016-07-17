@@ -3,6 +3,10 @@
   "description": "Class library for some useful tips and tricks",
   "authors": [ "dmitriy.litichevskiy" ],
 
+  "dependencies": {
+    "Dapper": "1.50.1"
+  },
+
   "frameworks": {
         "netcoreapp1.0": {
             "dependencies": {
