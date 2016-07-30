@@ -31,7 +31,7 @@
 
         private static SqlMetaData CreatorForStringsAndBinary(string name, Type type)
         {
-            return new SqlMetaData(name, GetSqlType(type), type == typeof(char) ? 1 : -1);
+            return new SqlMetaData(name, GetSqlType(type), type == typeof(char) || type == typeof(char?) ? 1 : -1);
         }
 
         private static SqlMetaData CreatorForDecimal(string name, Type type)
@@ -87,9 +87,7 @@
                 .AddMap<Guid>(CreatorForScalarTypes)
                 .AddMap<DateTime>(CreatorForScalarTypes)
                 .AddMap<DateTimeOffset>(CreatorForScalarTypes)
-                .AddMap<TimeSpan>(CreatorForScalarTypes)
                 .AddMap<byte[]>(CreatorForStringsAndBinary)
-                .AddMap<char[]>(CreatorForStringsAndBinary)
                 .AddMap<string>(CreatorForStringsAndBinary)
                 .AddMap<object>(CreatorForScalarTypes);
         }
