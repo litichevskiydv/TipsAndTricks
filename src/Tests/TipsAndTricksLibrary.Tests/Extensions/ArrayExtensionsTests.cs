@@ -26,7 +26,7 @@
         [MemberData(nameof(UpperBoundTestsData))]
         public void ShouldFindUpperBound(int[] source, int value, int? startIndex, int? endIndex, int? expectedResult)
         {
-            Assert.Equal(expectedResult, source.UpperBound(value, startIndex, endIndex));
+            Assert.Equal(expectedResult, source.UpperBound(value, startIndex: startIndex, endIndex: endIndex));
         }
     }
 }

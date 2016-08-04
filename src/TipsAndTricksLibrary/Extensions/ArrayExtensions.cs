@@ -5,8 +5,8 @@
 
     public static class ArrayExtensions
     {
-        public static int? UpperBound<TSource>(this IReadOnlyList<TSource> source, TSource value, int? startIndex = null, int? endIndex = null,
-            IComparer<TSource> itemsComparer = null)
+        public static int? UpperBound<TSource>(this IReadOnlyList<TSource> source, TSource value, IComparer<TSource> itemsComparer = null,
+            int? startIndex = null, int? endIndex = null)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
@@ -27,7 +27,7 @@
             while (count > 0)
             {
                 var current = first;
-                var step = count / 2;
+                var step = count/2;
                 current += step;
 
                 if (comparer.Compare(value, source[current]) >= 0)
@@ -39,7 +39,16 @@
                     count = step;
             }
 
-            return first == last ? (int?)null : first;
+            return first == last ? (int?) null : first;
+        }
+
+        public static int? UpperBound<TSource>(this IReadOnlyList<TSource> source, TSource value, Comparison<TSource> comparison,
+            int? startIndex = null, int? endIndex = null)
+        {
+            if(comparison == null)
+                throw new ArgumentNullException(nameof(comparison));
+
+            return UpperBound(source, value, Comparer<TSource>.Create(comparison), startIndex, endIndex);
         }
     }
 }
