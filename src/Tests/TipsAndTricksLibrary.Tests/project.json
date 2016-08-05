@@ -8,7 +8,9 @@
     "xunit": "2.1.0",
     "dotnet-test-xunit": "2.2.0-preview2-build1029",
     "JetBrains.Annotations": "10.1.5",
-    "TipsAndTricksLibrary": "1.0.0-*"
+    "TipsAndTricksLibrary": "1.0.0-*",
+    "CompareNETObjects": "3.5.0",
+    "Microsoft.NETCore.Portable.Compatibility": "1.0.1"
   },
     "frameworks": {
         "netcoreapp1.0": {

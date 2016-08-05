@@ -4,7 +4,9 @@
   "authors": [ "dmitriy.litichevskiy" ],
 
   "dependencies": {
-    "Dapper": "1.50.1"
+    "CompareNETObjects": "3.5.0",
+    "Dapper": "1.50.1",
+    "Microsoft.NETCore.Portable.Compatibility": "1.0.1"
   },
 
   "frameworks": {
