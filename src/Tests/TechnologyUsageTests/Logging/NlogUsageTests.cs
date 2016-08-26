@@ -1,5 +1,6 @@
 ﻿namespace TechnologyUsageTests.Logging
 {
+    using System;
     using Microsoft.Extensions.Logging;
     using NLog.Extensions.Logging;
     using Xunit;
@@ -16,9 +17,21 @@
         }
 
         [Fact]
-        public void ShouldWriteInfoMessage()
+        public void ShouldLogInfoMessage()
         {
             _logger.LogInformation("Information was decoded successfully");
+        }
+
+        [Fact]
+        public void ShouldLogErrorMessage()
+        {
+            _logger.LogError("Something went wrong");
+        }
+
+        [Fact]
+        public void ShouldLogException()
+        {
+            _logger.LogError(new EventId(1), new InvalidOperationException("Wrong operation sign"), "Something went wrong");
         }
     }
 }
