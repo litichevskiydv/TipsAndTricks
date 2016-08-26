@@ -1,4 +1,4 @@
-﻿namespace TipsAndTricksLibrary.Tests.Logging
+﻿namespace TechnologyUsageTests.Logging
 {
     using Microsoft.Extensions.Logging;
     using NLog.Extensions.Logging;

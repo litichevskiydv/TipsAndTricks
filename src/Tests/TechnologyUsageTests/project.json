@@ -1,0 +1,30 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Tests for technology usage",
+  "authors": [ "dmitriy.litichevskiy" ],
+
+  "testRunner": "xunit",
+  "dependencies": {
+    "xunit": "2.1.0",
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "JetBrains.Annotations": "10.1.5",
+    "CompareNETObjects": "3.5.0",
+    "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
+    "Microsoft.Extensions.Logging": "1.0.0",
+    "NLog.Extensions.Logging": "1.0.0-rtm-alpha4"
+  },
+    "frameworks": {
+        "netcoreapp1.0": {
+            "dependencies": {
+                "Microsoft.NETCore.App": {
+                    "type": "platform",
+                    "version": "1.0.0"
+                }
+            },
+            "imports": [
+                "dnxcore50",
+                "portable-net45+win8"
+            ]
+        }
+    }
+}
