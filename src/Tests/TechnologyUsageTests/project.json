@@ -1,16 +1,17 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Class library for some useful tips and tricks",
+  "description": "Tests for technology usage",
   "authors": [ "dmitriy.litichevskiy" ],
 
+  "testRunner": "xunit",
   "dependencies": {
-    "CompareNETObjects": "3.5.0",
-    "Dapper": "1.50.1",
-    "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
-    "Microsoft.Extensions.Logging": "1.0.0"
+    "xunit": "2.1.0",
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "Microsoft.Extensions.Logging": "1.0.0",
+    "NLog.Extensions.Logging": "1.0.0-rtm-alpha4",
+    "TipsAndTricksLibrary": "1.0.0-*"
   },
-
-  "frameworks": {
+    "frameworks": {
         "netcoreapp1.0": {
             "dependencies": {
                 "Microsoft.NETCore.App": {
