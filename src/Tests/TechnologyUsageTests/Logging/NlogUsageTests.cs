@@ -3,6 +3,7 @@
     using System;
     using Microsoft.Extensions.Logging;
     using NLog.Extensions.Logging;
+    using TipsAndTricksLibrary.Logging;
     using Xunit;
 
     public class NlogUsageTests
@@ -32,6 +33,12 @@
         public void ShouldLogException()
         {
             _logger.LogError(new EventId(1), new InvalidOperationException("Wrong operation sign"), "Something went wrong");
+        }
+
+        [Fact]
+        public void ShouldLogExceptionWithoutEventId()
+        {
+            _logger.LogError(new InvalidOperationException("Wrong operation sign"), "Something went wrong");
         }
     }
 }
