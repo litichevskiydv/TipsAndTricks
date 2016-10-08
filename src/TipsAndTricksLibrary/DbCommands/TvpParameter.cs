@@ -57,7 +57,8 @@
                 parameterValue.Add(record);
             }
 
-            parameter.Value = parameterValue;
+            if (parameterValue.Count > 0)
+                parameter.Value = parameterValue;
         }
     }
 }

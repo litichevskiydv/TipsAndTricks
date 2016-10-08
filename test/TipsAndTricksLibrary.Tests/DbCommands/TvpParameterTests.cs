@@ -1,15 +1,17 @@
 ﻿namespace TipsAndTricksLibrary.Tests.DbCommands
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Dapper;
+    using JetBrains.Annotations;
     using TipsAndTricksLibrary.Extensions;
     using TipsAndTricksLibrary.DbCommands;
     using Xunit;
 
     public class TvpParameterTests : UsingDbTestBase
     {
-        private class TestEntity
+        public class TestEntity
         {
             public int Id { get; set; }
 
@@ -87,16 +89,30 @@
             }
         }
 
-        [Fact]
-        public void ShouldUseTvpInQuery()
+        [UsedImplicitly]
+        public static readonly IEnumerable<object[]> SimpleTvpUsageTestsData;
+
+        static TvpParameterTests()
         {
-            // Given
-            var expected = new[]
-                           {
-                               new TestEntity {Id = 1, Name = "First", Value = 1},
-                               new TestEntity {Id = 2, Value = 2},
-                               new TestEntity {Id = 2, Name = "Third"}
-                           };
+            SimpleTvpUsageTestsData = new[]
+                                      {
+                                          new object[]
+                                          {
+                                              new[]
+                                              {
+                                                  new TestEntity {Id = 1, Name = "First", Value = 1},
+                                                  new TestEntity {Id = 2, Value = 2},
+                                                  new TestEntity {Id = 2, Name = "Third"}
+                                              }
+                                          },
+                                          new object[] {new TestEntity[0]}
+                                      };
+        }
+
+        [Theory]
+        [MemberData(nameof(SimpleTvpUsageTestsData))]
+        public void ShouldUseTvpInQuery(TestEntity[] expected)
+        {
             // When
             TestEntity[] actual;
             using (var connection = GetConnection())
