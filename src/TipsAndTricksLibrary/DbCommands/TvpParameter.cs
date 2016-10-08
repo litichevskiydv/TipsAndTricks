@@ -41,7 +41,7 @@
             parameter.TypeName = _typeName;
 
             var parameterValue = new List<SqlDataRecord>();
-            var itemProperties = typeof(TSource).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty);
+            var itemProperties = typeof(TSource).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             var tvpDefinition = itemProperties.Select(x => SqlTypesMapper.CreateMetaData(x.Name, x.PropertyType)).ToArray();
             foreach (var item in _source)
             {

@@ -20,7 +20,7 @@ namespace TipsAndTricksLibrary.DbCommands
             _collectionEnumerator = collection.GetEnumerator();
             HasRows = collection.Count > 0;
 
-            _itemProperties = typeof(TSource).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty);
+            _itemProperties = typeof(TSource).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             _propertiesIndicesByNames = _itemProperties
                 .Select((x, i) => new {x.Name, Index = i})
                 .ToDictionary(x => x.Name, x => x.Index);

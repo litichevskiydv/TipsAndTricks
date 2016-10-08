@@ -3,27 +3,30 @@
   "description": "Tests for library code",
   "authors": [ "dmitriy.litichevskiy" ],
 
+  "buildOptions": {
+    "debugType": "portable"
+  },
+
   "testRunner": "xunit",
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.1"
+        }
+      },
+      "imports": "portable-net45+win8"
+    }
+  },
+
   "dependencies": {
-    "xunit": "2.1.0",
-    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "xunit": "2.2.0-*",
+    "dotnet-test-xunit": "2.2.0-*",
     "JetBrains.Annotations": "10.1.5",
     "TipsAndTricksLibrary": "1.0.0-*",
     "CompareNETObjects": "3.5.0",
     "Microsoft.NETCore.Portable.Compatibility": "1.0.1"
-  },
-    "frameworks": {
-        "netcoreapp1.0": {
-            "dependencies": {
-                "Microsoft.NETCore.App": {
-                    "type": "platform",
-                    "version": "1.0.0"
-                }
-            },
-            "imports": [
-                "dnxcore50",
-                "portable-net45+win8"
-            ]
-        }
-    }
+  }
 }
