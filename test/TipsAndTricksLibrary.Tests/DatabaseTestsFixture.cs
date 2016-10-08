@@ -11,7 +11,7 @@
 
         protected static string ConnectionString =>
             IsAppVeyor
-                ? @"Data Source = (local)\SQL2014;Initial Catalog=tempdb;User Id=sa;Password=Passwd123!"
+                ? @"Data Source = (local)\SQL2014;Initial Catalog=tempdb;User Id=sa;Password=Password12!"
                 : @"Data Source = (localdb)\MSSQLLocalDB;Initial Catalog = tempdb; Integrated Security = True";
 
         protected static SqlConnection GetConnection()
