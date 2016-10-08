@@ -1,13 +1,12 @@
 ﻿namespace TipsAndTricksLibrary.Tests.DbCommands
 {
-    using System.Data.SqlClient;
     using Dapper;
     using TipsAndTricksLibrary.DbCommands;
     using Xunit;
     using System.Linq;
     using JetBrains.Annotations;
 
-    public class ConnectionExtensionsTests
+    public class ConnectionExtensionsTests : UsingDbTestBase
     {
         private class TestEntity
         {
@@ -16,13 +15,6 @@
             public string Name { get; set; }
 
             public int Value { get; set; }
-        }
-
-        private static SqlConnection GetConnection()
-        {
-            var connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=True");
-            connection.Open();
-            return connection;
         }
 
         [Fact]

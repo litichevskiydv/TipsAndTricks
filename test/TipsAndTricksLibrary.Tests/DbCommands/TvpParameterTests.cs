@@ -1,14 +1,13 @@
 ﻿namespace TipsAndTricksLibrary.Tests.DbCommands
 {
     using System;
-    using System.Data.SqlClient;
     using System.Linq;
     using Dapper;
     using TipsAndTricksLibrary.Extensions;
     using TipsAndTricksLibrary.DbCommands;
     using Xunit;
 
-    public class TvpParameterTests
+    public class TvpParameterTests : UsingDbTestBase
     {
         private class TestEntity
         {
@@ -86,13 +85,6 @@
                 if (obj.GetType() != this.GetType()) return false;
                 return Equals((TestEntityWithAllTypes) obj);
             }
-        }
-
-        private static SqlConnection GetConnection()
-        {
-            var connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=True");
-            connection.Open();
-            return connection;
         }
 
         [Fact]

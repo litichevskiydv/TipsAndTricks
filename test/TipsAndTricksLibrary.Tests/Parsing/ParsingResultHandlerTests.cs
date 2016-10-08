@@ -2,14 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.SqlClient;
     using System.Linq;
     using Dapper;
     using JetBrains.Annotations;
     using TipsAndTricksLibrary.Parsing;
     using Xunit;
 
-    public class ParsingResultHandlerTests
+    public class ParsingResultHandlerTests : UsingDbTestBase
     {
         [UsedImplicitly]
         public class DateTimeTestEntity
@@ -41,13 +40,6 @@
             public int Id { get; set; }
 
             public ParsingResult<decimal> Param { get; set; }
-        }
-
-        private static SqlConnection GetConnection()
-        {
-            var connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=True");
-            connection.Open();
-            return connection;
         }
 
         [UsedImplicitly]
