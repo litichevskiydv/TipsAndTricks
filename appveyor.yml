@@ -1,19 +1,19 @@
 version: 1.0.{build}
+image: Visual Studio 2017
 configuration: Release
-platform: Any CPU
 environment:
   Appveyor: true
-services: mssql2014
+services: mssql2016
 before_build:
 - cmd: >-
     dotnet restore "src\TipsAndTricksLibrary"
 
-    dotnet restore "test\TechnologyUsageTests"
-
     dotnet restore "test\TipsAndTricksLibrary.Tests"
+
+    dotnet restore "test\TechnologyUsageTests"
 build:
   parallel: true
   verbosity: minimal
 test_script:
-- cmd: dotnet test "test\TipsAndTricksLibrary.Tests" -c %CONFIGURATION%
+- cmd: dotnet test "test\TipsAndTricksLibrary.Tests\TipsAndTricksLibrary.Tests.csproj" -c Debug
 deploy: off
