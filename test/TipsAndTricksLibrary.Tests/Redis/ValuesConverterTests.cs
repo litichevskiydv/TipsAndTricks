@@ -38,7 +38,7 @@
 
         [Theory]
         [MemberData(nameof(TestsData))]
-        public void ShouldConvertIntToRedisValue(object value, RedisValue expectedRedisValue)
+        public void ShouldConvertToRedisValue(object value, RedisValue expectedRedisValue)
         {
             // When
             var convertDefinition = _convertGenericDefinition.MakeGenericMethod(value.GetType());

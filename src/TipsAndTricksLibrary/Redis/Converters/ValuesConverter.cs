@@ -17,9 +17,9 @@
 
         public RedisValue Convert<TValue>(TValue value)
         {
-            Func<object, RedisValue> converter;
-            if (_availableConversions.TryGetValue(typeof(TValue), out converter))
-                return converter(value);
+            Func<object, RedisValue> conversion;
+            if (_availableConversions.TryGetValue(typeof(TValue), out conversion))
+                return conversion(value);
             return JsonConvert.SerializeObject(value);
         }
     }
