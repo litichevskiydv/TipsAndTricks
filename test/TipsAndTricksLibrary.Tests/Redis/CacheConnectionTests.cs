@@ -69,7 +69,7 @@
         }
 
         [Fact]
-        public void ShouldDeleteKeySimpleValue()
+        public void ShouldDeleteKey()
         {
             // When
             var connection = _fixture.ConnectionsFactory.Create();
