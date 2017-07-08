@@ -1,6 +1,8 @@
 ﻿namespace TipsAndTricksLibrary.Redis.ConnectionsFactory
 {
-    public interface ICacheConnectionsFactory
+    using System;
+
+    public interface ICacheConnectionsFactory : IDisposable
     {
         ICacheConnection Create();
     }

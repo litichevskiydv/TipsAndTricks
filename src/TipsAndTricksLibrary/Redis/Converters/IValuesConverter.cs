@@ -4,6 +4,8 @@
 
     public interface IValuesConverter
     {
-        RedisValue Convert<TValue>(TValue value);
+        RedisValue ConvertTo<TValue>(TValue value);
+
+        TValue ConvertFrom<TValue>(RedisValue value);
     }
 }

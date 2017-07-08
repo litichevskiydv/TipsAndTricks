@@ -9,6 +9,8 @@
     {
         private readonly ConnectionMultiplexer _connectionMultiplexer;
 
+        protected bool Disposed;
+
         public CacheConnectionsFactory(IOptions<CacheConnectionsFactoryOptions> options)
         {
             if (options == null)
@@ -21,9 +23,37 @@
             _connectionMultiplexer.IncludeDetailInExceptions = true;
         }
 
+        private void ValidateStatus()
+        {
+            if (Disposed)
+                throw new ObjectDisposedException(nameof(ConnectionMultiplexer));
+        }
+
         public ICacheConnection Create()
         {
+            ValidateStatus();
             return new CacheConnection(_connectionMultiplexer.GetDatabase(), new KeysConverter(), new ValuesConverter());
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (Disposed)
+                return;
+
+            if (disposing)
+                _connectionMultiplexer?.Dispose();
+            Disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~CacheConnectionsFactory()
+        {
+            Dispose(false);
         }
     }
 }

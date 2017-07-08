@@ -8,19 +8,29 @@
 
     public class ValuesConverter : IValuesConverter
     {
-        private readonly Dictionary<Type, Func<object, RedisValue>> _availableConversions;
+        private readonly Dictionary<Type, Func<object, RedisValue>> _inConversions;
+        private readonly Dictionary<Type, Func<RedisValue, object>> _outConversions;
 
         public ValuesConverter()
         {
-            _availableConversions = TypeExtensions.GetAllConversionsIn<RedisValue>();
+            _inConversions = TypeExtensions.GetAllConversionsIn<RedisValue>();
+            _outConversions = TypeExtensions.GetAllConversionsOut<RedisValue>();
         }
 
-        public RedisValue Convert<TValue>(TValue value)
+        public RedisValue ConvertTo<TValue>(TValue value)
         {
             Func<object, RedisValue> conversion;
-            if (_availableConversions.TryGetValue(typeof(TValue), out conversion))
+            if (_inConversions.TryGetValue(typeof(TValue), out conversion))
                 return conversion(value);
             return JsonConvert.SerializeObject(value);
+        }
+
+        public TValue ConvertFrom<TValue>(RedisValue value)
+        {
+            Func<RedisValue, object> conversion;
+            if (_outConversions.TryGetValue(typeof(TValue), out conversion))
+                return (TValue)conversion(value);
+            return JsonConvert.DeserializeObject<TValue>(value);
         }
     }
 }

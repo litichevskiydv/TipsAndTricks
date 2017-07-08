@@ -16,10 +16,10 @@
             _availableConversions = TypeExtensions.GetAllConversionsIn<RedisKey>();
         }
 
-        public RedisKey Convert<TKey>(TKey key)
+        public RedisKey Convert(object key)
         {
             Func<object, RedisKey> conversion;
-            if(_availableConversions.TryGetValue(typeof(TKey), out conversion))
+            if (_availableConversions.TryGetValue(key.GetType(), out conversion))
                 return conversion(key);
 
             try
@@ -30,6 +30,11 @@
             {
                 return key.ToString();
             }
+        }
+
+        public RedisKey Convert<TKey>(TKey key)
+        {
+            return Convert((object)key);
         }
     }
 }

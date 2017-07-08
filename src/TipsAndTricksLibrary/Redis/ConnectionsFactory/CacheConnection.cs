@@ -27,12 +27,17 @@
 
         public void AddValue<TKey, TValue>(TKey key, TValue value, TimeSpan? lifeTime = null)
         {
-            _database.StringSet(_keysConverter.Convert(key), _valuesConverter.Convert(value), lifeTime);
+            _database.StringSet(_keysConverter.Convert(key), _valuesConverter.ConvertTo(value), lifeTime);
         }
 
         public void UpdateValue<TKey, TValue>(TKey key, TValue value, TimeSpan? lifeTime = null)
         {
-            _database.StringSet(_keysConverter.Convert(key), _valuesConverter.Convert(value), lifeTime);
+            _database.StringSet(_keysConverter.Convert(key), _valuesConverter.ConvertTo(value), lifeTime);
+        }
+
+        public TValue GetValue<TValue>(object key)
+        {
+            return _valuesConverter.ConvertFrom<TValue>(_database.StringGet(_keysConverter.Convert(key)));
         }
 
         public void DeleteByKeys<TKey>(params TKey[] keys)

@@ -35,5 +35,33 @@
 
             return availableConversions;
         }
+
+        public static Dictionary<Type, Func<TFrom, object>> GetAllConversionsOut<TFrom>()
+        {
+            var sourceType = typeof(TFrom);
+            var availableConversions = new Dictionary<Type, Func<TFrom, object>>();
+
+            var conversionsDefinitions = sourceType.GetMethods(BindingFlags.Public | BindingFlags.Static)
+                .Where(x => x.IsSpecialName && x.GetParameters().Length == 1 && x.GetParameters()[0].ParameterType == sourceType);
+
+            var objectType = typeof(object);
+            foreach (var definition in conversionsDefinitions)
+            {
+                var parameter = Expression.Parameter(sourceType, "x");
+                var converter = Expression.Lambda(
+                        Expression.Convert(
+                            Expression.Convert(
+                                parameter,
+                                definition.ReturnType,
+                                definition),
+                            objectType),
+                        parameter)
+                    .Compile();
+
+                availableConversions.Add(definition.ReturnType, (Func<TFrom, object>)converter);
+            }
+
+            return availableConversions;
+        }
     }
 }

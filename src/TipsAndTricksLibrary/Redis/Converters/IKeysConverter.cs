@@ -4,6 +4,8 @@
 
     public interface IKeysConverter
     {
+        RedisKey Convert(object key);
+
         RedisKey Convert<TKey>(TKey key);
     }
 }
