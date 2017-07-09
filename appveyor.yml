@@ -12,11 +12,11 @@ before_build:
 
     redis-64\tools\redis-server.exe --service-start
 
-    dotnet restore "src\TipsAndTricksLibrary"
+    dotnet restore "src\TipsAndTricksLibrary" --no-dependencies
 
-    dotnet restore "test\TipsAndTricksLibrary.Tests"
+    dotnet restore "test\TipsAndTricksLibrary.Tests" --no-dependencies
 
-    dotnet restore "test\TechnologyUsageTests"
+    dotnet restore "test\TechnologyUsageTests" --no-dependencies
 build:
   parallel: true
   verbosity: minimal
