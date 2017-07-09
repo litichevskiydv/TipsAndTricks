@@ -16,8 +16,10 @@
             ConnectionsFactory = new CacheConnectionsFactory(
                 Options.Create(new CacheConnectionsFactoryOptions
                                {
-                                   Redis = "127.0.0.1:6379,defaultDatabase=1,connectTimeout=10000,syncTimeout=10000,connectRetry=30,keepAlive=5,abortConnect=false"
-                }));
+                                   Redis =
+                                       "127.0.0.1:6379,defaultDatabase=1,connectTimeout=10000,syncTimeout=10000,connectRetry=30,keepAlive=5,abortConnect=false"
+                               }
+                ));
             Key = Guid.NewGuid();
         }
 
