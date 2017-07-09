@@ -1,0 +1,15 @@
+language: csharp
+services:
+  - redis-server
+mono: none
+dotnet: 1.0.4
+dist: trusty
+script:
+ - set -e
+ - dotnet restore "src\TipsAndTricksLibrary" --no-dependencies
+ - dotnet restore "test\TipsAndTricksLibrary.Tests" --no-dependencies
+ - dotnet restore "test\TechnologyUsageTests" --no-dependencies
+ - dotnet build "src\TipsAndTricksLibrary" -c Release --no-dependencies
+ - dotnet build "test\TipsAndTricksLibrary.Tests" -c Release --no-dependencies
+ - dotnet build "test\TechnologyUsageTests" -c Release --no-dependencies
+ - dotnet test "test\TipsAndTricksLibrary.Tests\TipsAndTricksLibrary.Tests.csproj" -c Release --no-build
