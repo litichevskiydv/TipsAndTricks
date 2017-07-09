@@ -15,5 +15,5 @@ script:
  - dotnet build "src\TipsAndTricksLibrary" -c Release --no-dependencies
  - dotnet build "test\TipsAndTricksLibrary.Tests" -c Release --no-dependencies
  - dotnet build "test\TechnologyUsageTests" -c Release --no-dependencies
- - sleep 60
+ - sleep 180
  - dotnet test "test\TipsAndTricksLibrary.Tests\TipsAndTricksLibrary.Tests.csproj" -c Release --no-build

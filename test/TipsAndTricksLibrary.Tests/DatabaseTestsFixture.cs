@@ -17,7 +17,7 @@
                 if (IsAppVeyor)
                     return @"Data Source = (local)\SQL2016;Initial Catalog=tempdb;User Id=sa;Password=Password12!";
                 return IsTravis
-                    ? @"Data Source = localhost;Initial Catalog=tempdb;User Id=sa;Password=Password12!;Connection Timeout=0"
+                    ? @"Data Source = localhost;Initial Catalog=tempdb;User Id=sa;Password=Password12!"
                     : @"Data Source = (localdb)\MSSQLLocalDB;Initial Catalog = tempdb; Integrated Security = True";
             }
         }
