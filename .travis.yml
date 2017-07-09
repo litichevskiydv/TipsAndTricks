@@ -9,6 +9,7 @@ script:
  - set -e
  - docker pull microsoft/mssql-server-linux
  - docker run -p 1433:1433 -e 'SA_PASSWORD=Password12!' -e 'ACCEPT_EULA=Y' -d microsoft/mssql-server-linux
+ - dotnet restore "src\TipsAndTricksLibrary" --no-dependencies
  - dotnet restore "test\TipsAndTricksLibrary.Tests" --no-dependencies
  - dotnet restore "test\TechnologyUsageTests" --no-dependencies
  - dotnet build "src\TipsAndTricksLibrary" -c Release --no-dependencies
