@@ -17,12 +17,17 @@
             _outConversions = TypeExtensions.GetAllConversionsOut<RedisValue>();
         }
 
-        public RedisValue ConvertTo<TValue>(TValue value)
+        public RedisValue ConvertTo(object value)
         {
             Func<object, RedisValue> conversion;
-            if (_inConversions.TryGetValue(typeof(TValue), out conversion))
+            if (_inConversions.TryGetValue(value.GetType(), out conversion))
                 return conversion(value);
             return JsonConvert.SerializeObject(value);
+        }
+
+        public RedisValue ConvertTo<TValue>(TValue value)
+        {
+            return ConvertTo((object) value);
         }
 
         public TValue ConvertFrom<TValue>(RedisValue value)
