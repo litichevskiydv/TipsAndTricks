@@ -1,4 +1,4 @@
-﻿namespace TipsAndTricksLibrary.Redis.ConnectionsFactory
+﻿namespace TipsAndTricksLibrary.Redis
 {
     public class CacheConnectionsFactoryOptions
     {

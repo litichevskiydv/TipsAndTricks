@@ -6,7 +6,7 @@
     using System.Reflection;
     using JetBrains.Annotations;
     using StackExchange.Redis;
-    using TipsAndTricksLibrary.Redis.Converters;
+    using TipsAndTricksLibrary.Redis.StackExhange.Converters;
     using Xunit;
 
     public class ValuesConverterTests

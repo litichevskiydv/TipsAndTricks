@@ -1,4 +1,4 @@
-﻿namespace TipsAndTricksLibrary.Redis.ConnectionsFactory
+﻿namespace TipsAndTricksLibrary.Redis.StackExhange
 {
     using System;
     using Converters;

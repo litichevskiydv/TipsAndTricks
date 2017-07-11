@@ -1,4 +1,4 @@
-﻿namespace TipsAndTricksLibrary.Redis.Converters
+﻿namespace TipsAndTricksLibrary.Redis.StackExhange.Converters
 {
     using System;
     using System.Collections.Generic;
