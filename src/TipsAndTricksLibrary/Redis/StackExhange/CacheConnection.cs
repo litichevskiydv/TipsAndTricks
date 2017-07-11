@@ -25,12 +25,12 @@
             _valuesConverter = valuesConverter;
         }
 
-        public void AddValue<TKey, TValue>(TKey key, TValue value, TimeSpan? lifeTime = null)
+        public void AddValue(object key, object value, TimeSpan? lifeTime = null)
         {
             _database.StringSet(_keysConverter.Convert(key), _valuesConverter.ConvertTo(value), lifeTime);
         }
 
-        public void UpdateValue<TKey, TValue>(TKey key, TValue value, TimeSpan? lifeTime = null)
+        public void UpdateValue(object key, object value, TimeSpan? lifeTime = null)
         {
             _database.StringSet(_keysConverter.Convert(key), _valuesConverter.ConvertTo(value), lifeTime);
         }

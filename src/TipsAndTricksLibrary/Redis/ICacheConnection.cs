@@ -4,9 +4,9 @@
 
     public interface ICacheConnection
     {
-        void AddValue<TKey, TValue>(TKey key, TValue value, TimeSpan? lifeTime = null);
+        void AddValue(object key, object value, TimeSpan? lifeTime = null);
 
-        void UpdateValue<TKey, TValue>(TKey key, TValue value, TimeSpan? lifeTime = null);
+        void UpdateValue(object key, object value, TimeSpan? lifeTime = null);
 
         TValue GetValue<TValue>(object key);
 
