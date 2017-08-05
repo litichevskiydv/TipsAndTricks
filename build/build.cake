@@ -4,8 +4,9 @@ var target = Argument("Target", "Default");
 // 1. If command line parameter parameter passed, use that.
 // 2. Otherwise if an Environment variable exists, use that.
 var configuration = 
-    HasArgument("Configuration") ? Argument("Configuration") :
-    EnvironmentVariable("Configuration") != null ? EnvironmentVariable("Configuration") : "Release";
+    HasArgument("Configuration") 
+        ? Argument<string>("Configuration") 
+        : EnvironmentVariable("Configuration") ?? "Release";
  
 // A directory path to an Artifacts directory.
 var artifactsDirectory = Directory("./Artifacts");
@@ -65,7 +66,7 @@ Task("Test")
     });
  
 // The default task to run if none is explicitly specified. In this case, we want
-// to run everything starting from Clean, all the way up to Pack.
+// to run everything starting from Clean, all the way up to Test.
 Task("Default")
     .IsDependentOn("Test");
  
