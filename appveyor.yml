@@ -1,23 +1,20 @@
 version: 1.0.{build}
 image: Visual Studio 2017
 configuration: Release
+environment:
+  Appveyor: true
 services: mssql2016
-before_build:
-- cmd: >-
+build_script:
+- ps: >-
     nuget install redis-64 -excludeversion
 
     redis-64\tools\redis-server.exe --service-install
 
     redis-64\tools\redis-server.exe --service-start
 
-    dotnet restore "src\TipsAndTricksLibrary" --no-dependencies
 
-    dotnet restore "test\TipsAndTricksLibrary.Tests" --no-dependencies
+    cd build
 
-    dotnet restore "test\TechnologyUsageTests" --no-dependencies
-build:
-  parallel: true
-  verbosity: minimal
-test_script:
-- cmd: dotnet test "test\TipsAndTricksLibrary.Tests\TipsAndTricksLibrary.Tests.csproj" -c Debug
+    .\build.ps1
+test: off
 deploy: off

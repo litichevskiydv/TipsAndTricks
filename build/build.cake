@@ -9,7 +9,7 @@ var configuration =
         : EnvironmentVariable("Configuration") ?? "Release";
  
 // A directory path to an Artifacts directory.
-var artifactsDirectory = MakeAbsolute(Directory("./Artifacts"));
+var artifactsDirectory = MakeAbsolute(Directory("./artifacts"));
  
 // Deletes the contents of the Artifacts folder if it should contain anything from a previous build.
 Task("Clean")
