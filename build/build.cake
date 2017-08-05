@@ -9,7 +9,7 @@ var configuration =
         : EnvironmentVariable("Configuration") ?? "Release";
  
 // A directory path to an Artifacts directory.
-var artifactsDirectory = Directory("./Artifacts");
+var artifactsDirectory = MakeAbsolute(Directory("./Artifacts"));
  
 // Deletes the contents of the Artifacts folder if it should contain anything from a previous build.
 Task("Clean")
@@ -52,16 +52,14 @@ Task("Test")
         var projects = GetFiles("../test/**/*.csproj");
         foreach(var project in projects)
         {
-            DotNetCoreTest(
+            DotNetCoreTool(
                 project.FullPath,
-                new DotNetCoreTestSettings()
-                {
-                    ArgumentCustomization = args => args
-                        .Append("-xml")
-                        .Append(artifactsDirectory.Path.CombineWithFilePath(project.GetFilenameWithoutExtension()).FullPath + ".xml"),
-                    Configuration = configuration,
-                    NoBuild = true
-                });
+                "xunit",
+                new ProcessArgumentBuilder() 
+                    .Append("-configuration " + configuration)
+                    .Append("-nobuild")
+                    .Append("-xml " + artifactsDirectory.CombineWithFilePath(project.GetFilenameWithoutExtension()).FullPath + ".xml")
+                );
         }
     });
  
