@@ -1,13 +1,11 @@
 language: csharp
-os:
-  - linux
-  - osx
+env:
+ - CONFIGURATION=Release
 services:
   - redis-server
   - docker
 mono: latest
 dotnet: 1.0.4
-dist: trusty
 script:
  - set -e
  - docker pull microsoft/mssql-server-linux
