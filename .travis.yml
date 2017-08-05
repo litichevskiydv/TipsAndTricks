@@ -2,7 +2,7 @@ language: csharp
 services:
   - redis-server
   - docker
-mono: none
+mono: latest
 dotnet: 1.0.4
 dist: trusty
 script:
