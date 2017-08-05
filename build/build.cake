@@ -23,7 +23,7 @@ Task("Restore")
     .IsDependentOn("Clean")
     .Does(() =>
     {
-        DotNetCoreRestore();
+        DotNetCoreRestore("..");
     });
  
 // Find all csproj projects and build them using the build configuration specified as an argument.
