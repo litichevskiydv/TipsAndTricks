@@ -53,7 +53,7 @@ Task("Test")
         foreach(var project in projects)
         {
             DotNetCoreTest(
-                project.GetDirectory().FullPath,
+                project.FullPath,
                 new DotNetCoreTestSettings()
                 {
                     ArgumentCustomization = args => args
