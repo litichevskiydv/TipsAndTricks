@@ -3,7 +3,6 @@
     using System;
     using Microsoft.Extensions.Logging;
     using NLog.Extensions.Logging;
-    using TipsAndTricksLibrary.Logging;
     using Xunit;
 
     public class NlogUsageTests
