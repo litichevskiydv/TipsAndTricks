@@ -18,17 +18,9 @@ Task("Clean")
         CleanDirectory(artifactsDirectory);
     });
  
-// Run dotnet restore to restore all package references.
-Task("Restore")
-    .IsDependentOn("Clean")
-    .Does(() =>
-    {
-        DotNetCoreRestore("..");
-    });
- 
 // Find all csproj projects and build them using the build configuration specified as an argument.
  Task("Build")
-    .IsDependentOn("Restore")
+    .IsDependentOn("Clean")
     .Does(() =>
     {
         var projects = GetFiles("../**/*.csproj");
