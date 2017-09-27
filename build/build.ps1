@@ -28,8 +28,8 @@ if($WhatIf.IsPresent) {
     $UseDryRun = "--dryrun"
 }
 
-& dotnet new classlib -o "$TEMP_DIR"
-& dotnet add "$TEMP_PROJECT" package --package-directory "$TOOLS_DIR" Cake.CoreCLR
+dotnet new classlib -o "$TEMP_DIR" --no-restore
+dotnet add "$TEMP_PROJECT" package --package-directory "$TOOLS_DIR" Cake.CoreCLR
 Remove-Item -Recurse -Force "$TEMP_DIR"
 $CakePath = Get-ChildItem -Filter Cake.dll -Recurse | Sort-Object -Descending | Select-Object -Expand FullName -first 1
 
