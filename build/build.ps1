@@ -28,11 +28,11 @@ if($WhatIf.IsPresent) {
     $UseDryRun = "--dryrun"
 }
 
-dotnet new classlib -o "$TEMP_DIR" --no-restore
-dotnet add "$TEMP_PROJECT" package --package-directory "$TOOLS_DIR" Cake.CoreCLR
+& dotnet new classlib -o "$TEMP_DIR" --no-restore
+& dotnet add "$TEMP_PROJECT" package --package-directory "$TOOLS_DIR" Cake.CoreCLR
 Remove-Item -Recurse -Force "$TEMP_DIR"
 $CakePath = Get-ChildItem -Filter Cake.dll -Recurse | Sort-Object -Descending | Select-Object -Expand FullName -first 1
 
 Write-Host "Running build script..."
-& dotnet "$CakePath" $Script --target=$Target --configuration=$Configuration --verbosity=$Verbosity $UseDryRun $ScriptArgs
+& dotnet "$CakePath" $Script --nuget_useinprocessclient=true --target=$Target --configuration=$Configuration --verbosity=$Verbosity $UseDryRun $ScriptArgs
 exit $LASTEXITCODE
