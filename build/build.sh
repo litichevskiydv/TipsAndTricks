@@ -2,8 +2,8 @@
 
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 TOOLS_DIR=$SCRIPT_DIR/tools
-TEMP_DIR = $SCRIPT_DIR/tmp
-$TEMP_PROJECT = $TEMP_DIR/tmp.csproj
+TEMP_DIR=$SCRIPT_DIR/tmp
+TEMP_PROJECT=$TEMP_DIR/tmp.csproj
 
 SCRIPT="build.cake"
 TARGET="Default"
