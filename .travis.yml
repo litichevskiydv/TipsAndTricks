@@ -4,9 +4,8 @@ env:
 services:
   - redis-server
   - docker
-dotnet:
-  - 1.0.4
-  - 2.0.0
+mono: none
+dotnet: 2.0.0
 script:
  - set -e
  - docker pull microsoft/mssql-server-linux
