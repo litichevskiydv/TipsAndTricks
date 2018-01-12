@@ -10,13 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CompareNETObjects" Version="3.9.0" />
+    <PackageReference Include="CompareNETObjects" Version="4.3.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.0" />
-    <PackageReference Include="Dapper" Version="1.50.3-beta1" />
+    <PackageReference Include="Dapper" Version="1.50.4" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.2" />
   </ItemGroup>
 
 </Project>
