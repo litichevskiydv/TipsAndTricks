@@ -14,9 +14,15 @@
             return compareLogic;
         }
 
-        public static CompareLogic SetMaxDifferencesCount(this CompareLogic compareLogic, int maxDifferencesCount)
+        public static CompareLogic SetupMaxDifferencesCount(this CompareLogic compareLogic, int maxDifferencesCount)
         {
             compareLogic.Config.MaxDifferences = maxDifferencesCount;
+            return compareLogic;
+        }
+
+        public static CompareLogic SetupCollectionsOrderChecking(this CompareLogic compareLogic, bool ignoreCollectionsOrder)
+        {
+            compareLogic.Config.IgnoreCollectionOrder = ignoreCollectionsOrder;
             return compareLogic;
         }
     }

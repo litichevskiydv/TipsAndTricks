@@ -1,5 +1,6 @@
 ﻿namespace TipsAndTricksLibrary.Tests.Testing
 {
+    using System.Linq;
     using JetBrains.Annotations;
     using KellermanSoftware.CompareNetObjects;
     using TipsAndTricksLibrary.Testing;
@@ -29,6 +30,23 @@
 
             // Then
             Assert.True(compareLogic.Compare(a, b).AreEqual);
+        }
+
+        [Theory]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        public void ShouldSetupColloctionsOrderChecking(bool ignoreCollectionsOrder, bool hasDifferences)
+        {
+            // Given
+            var first = new[] {1, 2};
+            var second = new[] {2, 1};
+
+            // When
+            var compareLogic = new CompareLogic()
+                .SetupCollectionsOrderChecking(ignoreCollectionsOrder);
+
+            // Then
+            Assert.Equal(hasDifferences, compareLogic.Compare(first, second).Differences.Any());
         }
     }
 }
