@@ -11,7 +11,7 @@ skip_commits:
   - README.md
   - .travis.yml
   - TipsAndTricksLibrary.sln.DotSettings
- for:
+for:
   -
     matrix:
       only:
