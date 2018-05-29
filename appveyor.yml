@@ -1,7 +1,7 @@
 version: 1.0.{build}
 image:
-  - Visual Studio 2017
-  - Ubuntu
+- Visual Studio 2017
+- Ubuntu
 configuration: Release
 test: off
 deploy: off
@@ -10,7 +10,7 @@ skip_commits:
   - LICENSE
   - README.md
   - .travis.yml
-  - WebInfrastructure.sln.DotSettings
+  - TipsAndTricksLibrary.sln.DotSettings
  for:
   -
     matrix:
