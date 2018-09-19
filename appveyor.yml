@@ -32,7 +32,7 @@ for:
   -
     matrix:
       only:
-        - image: Ubuntu
+        - image: ubuntu1804
     services: 
       - mssql
       - redis
