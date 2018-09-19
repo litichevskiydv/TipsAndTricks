@@ -39,5 +39,7 @@ for:
     build_script:
       - sh: >-
           cd build
+
           dotnet --info
+
           ./build.sh
