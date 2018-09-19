@@ -1,7 +1,7 @@
 version: 1.0.{build}
 image:
 - Visual Studio 2017
-- ubuntu1804
+- Ubuntu
 configuration: Release
 test: off
 deploy: off
@@ -32,14 +32,12 @@ for:
   -
     matrix:
       only:
-        - image: ubuntu1804
+        - image: Ubuntu
     services: 
       - mssql
       - redis
     build_script:
       - sh: >-
           cd build
-
-          dotnet --info
 
           ./build.sh
