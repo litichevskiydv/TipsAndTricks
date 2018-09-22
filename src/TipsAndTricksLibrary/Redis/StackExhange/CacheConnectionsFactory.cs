@@ -1,6 +1,7 @@
 ﻿namespace TipsAndTricksLibrary.Redis.StackExhange
 {
     using System;
+    using System.Collections.Generic;
     using Converters;
     using Microsoft.Extensions.Options;
     using StackExchange.Redis;
@@ -19,6 +20,8 @@
                 throw new ArgumentNullException(nameof(CacheConnectionsFactoryOptions.Redis));
 
             var configuration = ConfigurationOptions.Parse(options.Value.Redis);
+            configuration.CommandMap = CommandMap.Create(new HashSet<string> {"SUBSCRIBE"}, false);
+
             _connectionMultiplexer = ConnectionMultiplexer.Connect(configuration);
             _connectionMultiplexer.IncludeDetailInExceptions = true;
         }
