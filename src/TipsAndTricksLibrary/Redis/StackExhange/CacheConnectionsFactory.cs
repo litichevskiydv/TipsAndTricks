@@ -21,6 +21,7 @@
 
             var configuration = ConfigurationOptions.Parse(options.Value.Redis);
             configuration.CommandMap = CommandMap.Create(new HashSet<string> {"SUBSCRIBE"}, false);
+            configuration.SocketManager = new SocketManager("Custom", true);
 
             _connectionMultiplexer = ConnectionMultiplexer.Connect(configuration);
             _connectionMultiplexer.IncludeDetailInExceptions = true;
