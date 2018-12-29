@@ -1,3 +1,4 @@
+dist: xenial
 language: csharp
 env:
  - CONFIGURATION=Release
@@ -5,7 +6,7 @@ services:
   - redis-server
   - docker
 mono: none
-dotnet: 2.1.300
+dotnet: 2.2.100
 script:
  - set -e
  - docker pull microsoft/mssql-server-linux:2017-latest
