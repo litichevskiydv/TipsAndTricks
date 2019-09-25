@@ -1,7 +1,6 @@
 ﻿namespace TipsAndTricksLibrary.Tests.Cryptography.Rsa
 {
     using System;
-    using System.Collections.Generic;
     using System.Security.Cryptography;
     using JetBrains.Annotations;
     using KellermanSoftware.CompareNetObjects;

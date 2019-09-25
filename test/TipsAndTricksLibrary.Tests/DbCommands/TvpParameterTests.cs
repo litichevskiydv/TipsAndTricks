@@ -1,7 +1,6 @@
 ﻿namespace TipsAndTricksLibrary.Tests.DbCommands
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using Dapper;
     using JetBrains.Annotations;
@@ -90,23 +89,21 @@
         }
 
         [UsedImplicitly]
-        public static readonly IEnumerable<object[]> SimpleTvpUsageTestsData;
+        public static readonly TheoryData<TestEntity[]> SimpleTvpUsageTestsData;
 
         static TvpParameterTests()
         {
-            SimpleTvpUsageTestsData = new[]
-                                      {
-                                          new object[]
-                                          {
-                                              new[]
-                                              {
-                                                  new TestEntity {Id = 1, Name = "First", Value = 1},
-                                                  new TestEntity {Id = 2, Value = 2},
-                                                  new TestEntity {Id = 2, Name = "Third"}
-                                              }
-                                          },
-                                          new object[] {new TestEntity[0]}
-                                      };
+            SimpleTvpUsageTestsData
+                = new TheoryData<TestEntity[]>
+                  {
+                      new[]
+                      {
+                          new TestEntity {Id = 1, Name = "First", Value = 1},
+                          new TestEntity {Id = 2, Value = 2},
+                          new TestEntity {Id = 2, Name = "Third"}
+                      },
+                      new TestEntity[0]
+                  };
         }
 
         [Theory]
@@ -119,8 +116,8 @@
             {
                 connection.Execute(@"
 if type_id (N'[dbo].[TestList]') is null
-	create type [dbo].[TestList] as table(
-	    [Id] [int] not null,
+    create type [dbo].[TestList] as table(
+        [Id] [int] not null,
         [Name] [nvarchar](max) null,
         [Value] [int] null)");
 
@@ -148,38 +145,39 @@ select * from @Param",
         public void ShouldUseTvpInQueryWithAllTypes()
         {
             // Given
-            var expected = new[]
-                           {
-                               new TestEntityWithAllTypes
-                               {
-                                   Id = 1,
-                                   Value1 = 1,
-                                   Value2 = 2,
-                                   Value3 = 12L,
-                                   Value4 = 1.5f,
-                                   Value5 = 1.7d,
-                                   Value6 = 1.8m,
-                                   Value7 = true,
-                                   Value8 = Guid.NewGuid(),
-                                   Value9 = new DateTime(2016, 01, 01, 00, 00, 00, DateTimeKind.Unspecified),
-                                   Value10 = DateTimeOffset.Now,
-                                   Value12 = new byte[] {5, 6, 7},
-                                   Value14 = "abcde",
-                                   Value15 = 'f'
-                               },
-                               new TestEntityWithAllTypes
-                               {
-                                   Id = 1,
-                                   Value1 = 1,
-                                   Value2 = 2,
-                                   Value4 = 1.5f,
-                                   Value5 = 1.7d,
-                                   Value10 = DateTimeOffset.Now,
-                                   Value12 = new byte[0],
-                                   Value14 = "ab",
-                                   Value15 = 'l'
-                               }
-                           };
+            var expected
+                = new[]
+                  {
+                      new TestEntityWithAllTypes
+                      {
+                          Id = 1,
+                          Value1 = 1,
+                          Value2 = 2,
+                          Value3 = 12L,
+                          Value4 = 1.5f,
+                          Value5 = 1.7d,
+                          Value6 = 1.8m,
+                          Value7 = true,
+                          Value8 = Guid.NewGuid(),
+                          Value9 = new DateTime(2016, 01, 01, 00, 00, 00, DateTimeKind.Unspecified),
+                          Value10 = DateTimeOffset.Now,
+                          Value12 = new byte[] {5, 6, 7},
+                          Value14 = "abcde",
+                          Value15 = 'f'
+                      },
+                      new TestEntityWithAllTypes
+                      {
+                          Id = 1,
+                          Value1 = 1,
+                          Value2 = 2,
+                          Value4 = 1.5f,
+                          Value5 = 1.7d,
+                          Value10 = DateTimeOffset.Now,
+                          Value12 = new byte[0],
+                          Value14 = "ab",
+                          Value15 = 'l'
+                      }
+                  };
 
             // When
             TestEntityWithAllTypes[] actual;
@@ -187,21 +185,21 @@ select * from @Param",
             {
                 connection.Execute(@"
 if type_id (N'[dbo].[TestListWithAllTypes]') is null
-	create type [dbo].[TestListWithAllTypes] as table(
-	    [Id] [int] not null,
+    create type [dbo].[TestListWithAllTypes] as table(
+        [Id] [int] not null,
         [Value1] [tinyint] null,
         [Value2] [smallint] null,
-		[Value3] [bigint] null,
-		[Value4] [real] null,
-		[Value5] [float] null,
-		[Value6] [decimal](10,2) null,
-		[Value7] [bit] null,
-		[Value8] [uniqueidentifier] null,
-		[Value9] [datetime] null,
-		[Value10] [datetimeoffset] null,
-		[Value12] [varbinary](max) null,
-		[Value14] [nvarchar](max) null,
-		[Value15] [nchar](1) null)");
+        [Value3] [bigint] null,
+        [Value4] [real] null,
+        [Value5] [float] null,
+        [Value6] [decimal](10,2) null,
+        [Value7] [bit] null,
+        [Value8] [uniqueidentifier] null,
+        [Value9] [datetime] null,
+        [Value10] [datetimeoffset] null,
+        [Value12] [varbinary](max) null,
+        [Value14] [nvarchar](max) null,
+        [Value15] [nchar](1) null)");
 
                 actual = connection.Query<TestEntityWithAllTypes>(@"
 select * from @Param",
