@@ -24,15 +24,14 @@ Task("Clean")
     .Does(() =>
     {
         var projects = GetFiles("../**/*.csproj");
-        foreach(var project in projects)
+        var settings = new DotNetCoreBuildSettings
         {
-            DotNetCoreBuild(
-                project.GetDirectory().FullPath,
-                new DotNetCoreBuildSettings()
-                {
-                    Configuration = configuration
-                });
-        }
+            Configuration = configuration,
+            ArgumentCustomization = args => args.Append("--configfile ./NuGet.config")
+        };
+
+        foreach(var project in projects)
+            DotNetCoreBuild(project.GetDirectory().FullPath, settings);
     });
  
 // Look under a 'Tests' folder and run dotnet test against all of those projects.
