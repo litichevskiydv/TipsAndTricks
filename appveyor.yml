@@ -16,7 +16,7 @@ for:
     matrix:
       only:
         - image: Visual Studio 2019
-    services: mssql2016
+    services: mssql2017
     build_script:
       - ps: >-
           nuget install redis-64 -excludeversion
