@@ -1,7 +1,6 @@
 version: 1.0.{build}
 image:
 - Visual Studio 2019
-- Ubuntu
 configuration: Release
 test: off
 deploy: off
@@ -29,15 +28,3 @@ for:
 
           .\build.ps1
         
-  -
-    matrix:
-      only:
-        - image: Ubuntu
-    services: 
-      - mssql
-      - redis
-    build_script:
-      - sh: >-
-          cd build
-
-          ./build.sh
