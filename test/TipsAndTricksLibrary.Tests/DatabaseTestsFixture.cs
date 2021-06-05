@@ -7,25 +7,20 @@
     [UsedImplicitly]
     public abstract class UsingDbTestBase
     {
-        private readonly bool _isAppVeyorWindows;
-        private readonly bool _isAppVeyorLinux;
-
-        private readonly bool _isTravis;
-
+        private readonly bool _isAppVeyor;
         private readonly bool _isGithubActions;
 
         private string ConnectionString
         {
             get
             {
-                if (_isAppVeyorWindows)
+                if (_isAppVeyor)
                     return @"Data Source = (local)\SQL2017;Initial Catalog=tempdb;User Id=sa;Password=Password12!";
-                if (_isAppVeyorLinux)
+                if (_isGithubActions)
                     return "Data Source = localhost;Initial Catalog=tempdb;User Id=sa;Password=Password12!";
 
-                return _isTravis || _isGithubActions
-                    ? "Data Source = localhost;Initial Catalog=tempdb;User Id=sa;Password=Password12!"
-                    : @"Data Source = (localdb)\MSSQLLocalDB;Initial Catalog = tempdb; Integrated Security = True";
+
+                return @"Data Source = (localdb)\MSSQLLocalDB;Initial Catalog = tempdb; Integrated Security = True";
             }
         }
 
@@ -38,12 +33,7 @@
 
         protected UsingDbTestBase()
         {
-            var isAppVeyor = Environment.GetEnvironmentVariable("APPVEYOR")?.ToUpperInvariant() == "TRUE";
-            _isAppVeyorWindows = isAppVeyor && Environment.GetEnvironmentVariable("CI_WINDOWS")?.ToUpperInvariant() == "TRUE";
-            _isAppVeyorLinux = isAppVeyor && Environment.GetEnvironmentVariable("CI_LINUX")?.ToUpperInvariant() == "TRUE";
-
-            _isTravis = Environment.GetEnvironmentVariable("TRAVIS")?.ToUpperInvariant() == "TRUE";
-
+            _isAppVeyor = Environment.GetEnvironmentVariable("APPVEYOR")?.ToUpperInvariant() == "TRUE";
             _isGithubActions = Environment.GetEnvironmentVariable("GITHUB_ACTIONS")?.ToUpperInvariant() == "TRUE";
         }
     }
