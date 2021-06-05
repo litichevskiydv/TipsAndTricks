@@ -1,7 +1,14 @@
 version: 1.0.{build}
-image:
-- Visual Studio 2019
+image: Visual Studio 2019
 configuration: Release
+services: mssql2017
+build_script:
+- ps: >-
+    nuget install redis-64 -excludeversion
+    redis-64\tools\redis-server.exe --service-install
+    redis-64\tools\redis-server.exe --service-start
+    cd build
+    .\build.ps1
 test: off
 deploy: off
 skip_commits:
@@ -10,21 +17,3 @@ skip_commits:
   - README.md
   - .travis.yml
   - TipsAndTricksLibrary.sln.DotSettings
-for:
-  -
-    matrix:
-      only:
-        - image: Visual Studio 2019
-    services: mssql2017
-    build_script:
-      - ps: >-
-          nuget install redis-64 -excludeversion
-
-          redis-64\tools\redis-server.exe --service-install
-
-          redis-64\tools\redis-server.exe --service-start
-    
-          cd build
-
-          .\build.ps1
-        
