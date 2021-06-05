@@ -12,6 +12,8 @@
 
         private readonly bool _isTravis;
 
+        private readonly bool _isGithubActions;
+
         private string ConnectionString
         {
             get
@@ -21,7 +23,7 @@
                 if (_isAppVeyorLinux)
                     return "Data Source = localhost;Initial Catalog=tempdb;User Id=sa;Password=Password12!";
 
-                return _isTravis
+                return _isTravis || _isGithubActions
                     ? "Data Source = localhost;Initial Catalog=tempdb;User Id=sa;Password=Password12!"
                     : @"Data Source = (localdb)\MSSQLLocalDB;Initial Catalog = tempdb; Integrated Security = True";
             }
@@ -41,6 +43,8 @@
             _isAppVeyorLinux = isAppVeyor && Environment.GetEnvironmentVariable("CI_LINUX")?.ToUpperInvariant() == "TRUE";
 
             _isTravis = Environment.GetEnvironmentVariable("TRAVIS")?.ToUpperInvariant() == "TRUE";
+
+            _isGithubActions = Environment.GetEnvironmentVariable("GITHUB_ACTIONS")?.ToUpperInvariant() == "TRUE";
         }
     }
 }

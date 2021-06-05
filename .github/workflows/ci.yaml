@@ -1,0 +1,83 @@
+name: ci workflow
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  test-nix:
+    name: test-nix
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    
+    runs-on: ${{ matrix.os }}
+    
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379/tcp
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2017-latest
+        ports:
+          - 1433/tcp
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: Password12!
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x'
+      - name: Run the Cake script
+        uses: cake-build/cake-action@v1
+        with:
+          script-path: ./build/build.cake
+          target: Test
+          verbosity: Verbose
+          arguments: |
+            configuration: Release
+            nuget_useinprocessclient: true
+            
+  test-win:
+    name: test-win
+    needs: test-nix
+    
+    runs-on: windows-latest
+    
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379/tcp
+      mssql:
+        image: microsoft/mssql-server-windows-express:2017-latest
+        ports:
+          - 1433/tcp
+        env:
+          ACCEPT_EULA: Y
+          sa_password: Password12!
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x'
+      - name: Run the Cake script
+        uses: cake-build/cake-action@v1
+        with:
+          script-path: ./build/build.cake
+          target: Test
+          verbosity: Verbose
+          arguments: |
+            configuration: Release
+            nuget_useinprocessclient: true
+
+
